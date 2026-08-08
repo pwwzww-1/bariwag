@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pişik Sahiplənmə İllüziyası 🐾</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe6e6 0%, #ffccde 100%);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .card {
+      background: white;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+    }
+    h1 {
+      color: #ff4d6d;
+      font-size: 24px;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+    p.subtext {
+      color: #555;
+      font-size: 16px;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+    .btn-container {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+      position: relative;
+      min-height: 50px;
+    }
+    button {
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+      box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
+    }
+    #yesBtn:hover {
+      transform: scale(1.05);
+      background-color: #ff3355;
+    }
+    #noBtn {
+      background-color: #e0e0e0;
+      color: #333;
+      position: relative;
+    }
+    .emoji-fall {
+      position: fixed;
+      top: -50px;
+      font-size: 30px;
+      animation: fall 3s linear infinite;
+      z-index: 1000;
+      pointer-events: none;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(105vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="mainCard">
+    <h1 id="questionText">Pişik sahiplənmə datesinə gedək? 🐱✨</h1>
+    
+    <div class="btn-container">
+      <button id="yesBtn" onclick="acceptOffer()">Hə 😻</button>
+      <button id="noBtn" onclick="rejectOffer()">Yox 😿</button>
+    </div>
+
+    <p class="subtext" id="subText" style="display: none;"></p>
+  </div>
+
+  <script>
+    const noMessages = [
+      "Yox desən də pişikləri görməlisən! 🐈",
+      "Olmaz! Mütləq pişiklərə baxmağa getməliyik! 🐾",
+      "Bəs afrikadakı uşaqların pişikləri nə olacaq? 🥺",
+      "Nə yox?! Pişikləri sevmək məcburidir! 🐱❤️",
+      "Yox cavabı qəbul edilmir, pişik sohbeti bağlanmadı! 😹",
+      "Ailəmizin yeni pişikləri üçün razı olmalısan! 🐈‍⬛"
+    ];
+
+    let messageIndex = 0;
+
+    function rejectOffer() {
+      const question = document.getElementById("questionText");
+      const noBtn = document.getElementById("noBtn");
+
+      question.innerText = noMessages[messageIndex];
+      messageIndex = (messageIndex + 1) % noMessages.length;
+
+      const x = Math.random() * (window.innerWidth - 100) - window.innerWidth / 2;
+      const y = Math.random() * (window.innerHeight - 100) - window.innerHeight / 2;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    function acceptOffer() {
+      document.getElementById("questionText").innerText = "BARIŞDIQ BUNUDA DANIŞDIQ.! 😻🎉";
+      
+      const subText = document.getElementById("subText");
+      subText.innerText = "Afrikadakı uşaqların pişiklərini oğurlayaq 🐱🔑";
+      subText.style.display = "block";
+
+      document.querySelector(".btn-container").style.display = "none";
+
+      createEmojiRain();
+    }
+
+    function createEmojiRain() {
+      const emojis = ['🐱', '😸', '😻', '😽', '❤️', '💖', '🐾', '💕', '🐈'];
+      
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          const emoji = document.createElement('div');
+          emoji.classList.add('emoji-fall');
+          emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+          emoji.style.left = Math.random() * 100 + 'vw';
+          emoji.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          document.body.appendChild(emoji);
+
+          setTimeout(() => emoji.remove(), 4000);
+        }, i * 100);
+      }
+    }
+  </script>
+</body>
+</html>
